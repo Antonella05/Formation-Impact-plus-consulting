@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact Plus — Inscription Formation Stimulation des Puits</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-dark: #1a4a7a;
+    --blue-main: #1e5fa8;
+    --blue-mid: #2872c0;
+    --blue-light: #4a90d9;
+    --blue-pale: #e8f1fb;
+    --white: #ffffff;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-400: #94a3b8;
+    --gray-600: #475569;
+    --gray-800: #1e293b;
+    --gold: #c8972a;
+    --success: #16a34a;
+    --error: #dc2626;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 16px rgba(30,95,168,0.10);
+    --shadow-lg: 0 12px 40px rgba(30,95,168,0.14);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-800);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-main) 60%, var(--blue-mid) 100%);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 40%;
+    width: 200px; height: 200px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 50%;
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 5vw;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+  .logo-wrap img { height: 52px; display: block; }
+  .header-badge {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+  .header-hero {
+    padding: 48px 5vw 52px;
+    position: relative; z-index: 1;
+  }
+  .header-ref {
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 3.5vw, 38px);
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(255,255,255,0.72);
+    font-weight: 300;
+    margin-bottom: 28px;
+    font-style: italic;
+  }
+  .header-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .tag {
+    background: rgba(255,255,255,0.13);
+    border: 1px solid rgba(255,255,255,0.22);
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* MAIN LAYOUT */
+  main {
+    width: 100%;
+    padding: 48px 5vw 64px;
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 40px;
+    align-items: start;
+  }
+
+  /* SECTIONS GAUCHE */
+  .section {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 32px 36px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--gray-200);
+    margin-bottom: 24px;
+  }
+  .section:last-child { margin-bottom: 0; }
+  .section-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue-main);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gray-200);
+  }
+
+  /* Info cards */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .info-card {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .info-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-400);
+    margin-bottom: 4px;
+  }
+  .info-value {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-800);
+  }
+  .info-card.highlight {
+    background: var(--blue-pale);
+    border-color: var(--blue-light);
+  }
+  .info-card.highlight .info-value {
+    color: var(--blue-dark);
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  /* Programme */
+  .day-block { margin-bottom: 20px; }
+  .day-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue-main);
+    background: var(--blue-pale);
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  .module-row {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: 13.5px;
+  }
+  .module-row:last-child { border-bottom: none; }
+  .module-num {
+    min-width: 72px;
+    font-weight: 600;
+    color: var(--blue-main);
+    font-size: 12px;
+  }
+  .module-content strong {
+    display: block;
+    font-size: 13.5px;
+    color: var(--gray-800);
+    margin-bottom: 2px;
+  }
+  .module-content span {
+    font-size: 12px;
+    color: var(--gray-600);
+    line-height: 1.4;
+  }
+
+  /* Objectifs */
+  .obj-list { list-style: none; }
+  .obj-item {
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--gray-100);
+    align-items: flex-start;
+  }
+  .obj-item:last-child { border-bottom: none; }
+  .obj-num {
+    min-width: 28px; height: 28px;
+    background: var(--blue-main);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .obj-text { font-size: 13.5px; line-height: 1.5; color: var(--gray-600); }
+  .obj-text strong { color: var(--gray-800); display: block; margin-bottom: 2px; }
+
+  /* PANNEAU PAIEMENT (droite) */
+  .payment-panel {
+    position: sticky;
+    top: 24px;
+  }
+  .price-card {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--gray-200);
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .price-header {
+    background: linear-gradient(135deg, var(--blue-dark), var(--blue-main));
+    padding: 28px 28px 24px;
+    color: #fff;
+  }
+  .price-label { font-size: 11px; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+  .price-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .price-amount span { font-size: 22px; font-weight: 400; opacity: 0.8; }
+  .price-note { font-size: 12px; opacity: 0.65; margin-top: 6px; }
+  .price-body { padding: 24px 28px; }
+
+  /* Session selector */
+  .field-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray-600);
+    margin-bottom: 8px;
+  }
+  .session-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .session-btn {
+    border: 2px solid var(--gray-200);
+    background: var(--white);
+    border-radius: 8px;
+    padding: 10px 12px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.18s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .session-btn:hover { border-color: var(--blue-light); background: var(--blue-pale); }
+  .session-btn.active { border-color: var(--blue-main); background: var(--blue-pale); }
+  .session-btn .s-month { font-size: 13px; font-weight: 600; color: var(--gray-800); }
+  .session-btn .s-year { font-size: 11px; color: var(--gray-400); }
+
+  /* Form fields */
+  .field-group { margin-bottom: 16px; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  input, select {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--gray-200);
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--gray-800);
+    background: var(--white);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  input:focus, select:focus { border-color: var(--blue-main); box-shadow: 0 0 0 3px rgba(30,95,168,0.08); }
+  input::placeholder { color: var(--gray-400); }
+
+  /* Payment method tabs */
+  .payment-tabs {
+    display: flex;
+    gap: 0;
+    border: 1.5px solid var(--gray-200);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .pay-tab {
+    flex: 1;
+    padding: 10px 8px;
+    border: none;
+    background: var(--white);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gray-600);
+    transition: all 0.18s;
+    border-right: 1.5px solid var(--gray-200);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .pay-tab:last-child { border-right: none; }
+  .pay-tab.active { background: var(--blue-pale); color: var(--blue-main); font-weight: 600; }
+  .pay-tab svg { width: 18px; height: 18px; }
+
+  /* Card fields */
+  .card-fields { display: none; }
+  .card-fields.show { display: block; }
+  .card-number-wrap {
+    position: relative;
+    margin-bottom: 10px;
+  }
+  .card-icons {
+    position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+    display: flex; gap: 4px; align-items: center;
+  }
+  .card-brand {
+    width: 32px; height: 20px;
+    border-radius: 3px;
+    font-size: 8px;
+    font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    letter-spacing: 0.05em;
+  }
+  .card-brand.visa { background: #1a1f71; color: #fff; }
+  .card-brand.mc { background: linear-gradient(90deg, #eb001b, #f79e1b); color: #fff; }
+  .card-brand.amex { background: #016fd0; color: #fff; }
+
+  /* Virement fields */
+  .virement-fields { display: none; }
+  .virement-fields.show { display: block; }
+  .bank-info {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+  .bank-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid var(--gray-100); }
+  .bank-row:last-child { border-bottom: none; }
+  .bank-key { color: var(--gray-400); font-weight: 500; font-size: 11px; }
+  .bank-val { font-weight: 600; color: var(--gray-800); font-size: 12px; font-family: monospace; }
+
+  /* Cheque fields */
+  .cheque-fields { display: none; }
+  .cheque-fields.show { display: block; }
+  .cheque-info {
+    background: var(--blue-pale);
+    border: 1px solid rgba(30,95,168,0.2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 13px;
+    color: var(--blue-dark);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+
+  /* Security badges */
+  .security-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-top: 1px solid var(--gray-100);
+    margin-top: 4px;
+  }
+  .sec-badge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--gray-400);
+  }
+
+  /* CTA Button */
+  .btn-register {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--blue-main), var(--blue-mid));
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 10px;
+    letter-spacing: 0.02em;
+  }
+  .btn-register:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(30,95,168,0.3); }
+  .btn-register:active { transform: translateY(0); }
+
+  .guarantee {
+    text-align: center;
+    font-size: 11.5px;
+    color: var(--gray-400);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  /* Places restantes */
+  .places-bar {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 16px 20px;
+    box-shadow: var(--shadow-sm);
+  }
+  .places-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 12px;
+  }
+  .places-label { font-weight: 600; color: var(--gray-800); }
+  .places-count { color: var(--gold); font-weight: 700; }
+  .prog-bar {
+    height: 6px;
+    background: var(--gray-200);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .prog-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--blue-main), var(--blue-light));
+    border-radius: 3px;
+    width: 63%;
+    transition: width 1s ease;
+  }
+  .places-note { font-size: 11px; color: var(--gray-400); margin-top: 6px; }
+
+  /* Success modal */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 40px 36px;
+    max-width: 440px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.15);
+  }
+  .modal-icon {
+    width: 64px; height: 64px;
+    background: #dcfce7;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 28px;
+  }
+  .modal h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--gray-800);
+    margin-bottom: 10px;
+  }
+  .modal p { font-size: 14px; color: var(--gray-600); line-height: 1.6; margin-bottom: 24px; }
+  .modal-close {
+    padding: 12px 32px;
+    background: var(--blue-main);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* Footer */
+  footer {
+    background: var(--blue-dark);
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    line-height: 1.7;
+  }
+  footer a { color: rgba(255,255,255,0.8); text-decoration: none; }
+
+  @media (max-width: 900px) {
+    main { grid-template-columns: 1fr; padding: 24px 4vw; }
+    .payment-panel { position: static; }
+    .header-top { padding: 16px 4vw; }
+    .header-hero { padding: 28px 4vw 32px; }
+    .info-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-top">
+    <div class="logo-wrap">
+      <img src="data:image/png;base64,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" alt="Impact Plus">
+    </div>
+    <div class="header-badge">Formation Certifiante 2026</div>
+  </div>
+  <div class="header-hero">
+    <div class="header-ref">Réf. IPCG-PETRO-STIM-001 &nbsp;·&nbsp; Paris, France</div>
+    <h1 class="header-title">Stimulation des Puits de Pétrole<br>& Gestion des Dommages de Formation</h1>
+    <div class="header-subtitle">Formation Professionnelle Certifiante — 3 jours / 24 heures</div>
+    <div class="header-tags">
+      <div class="tag">Stimulation & Acidification</div>
+      <div class="tag">Diagnostic de Puits</div>
+      <div class="tag">Optimisation & Performance</div>
+      <div class="tag">Certificat Officiel</div>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main>
+  <div class="left-col">
+
+    <!-- Infos pratiques -->
+    <div class="section">
+      <div class="section-title">Informations Pratiques</div>
+      <div class="info-grid">
+        <div class="info-card highlight">
+          <div class="info-label">Tarif par participant</div>
+          <div class="info-value">6 000 € TTC</div>
+        </div>
+        <div class="info-card">
+          <div class="info-label">Durée</div>
+          <div class="info-value">3 jours — 24h</div>
+        </div>
+        <div class="info-card">
+          <div class="info-label">Sessions</div>
+          <div class="info-value">Juin & Juillet 2026</div>
+        </div>
+        <div class="info-card">
+          <div class="info-label">Lieu</div>
+          <div class="info-value">6 Rue Carle Hébert, 92400 Paris</div>
+        </div>
+        <div class="info-card">
+          <div class="info-label">Niveau</div>
+          <div class="info-value">Intermédiaire à Avancé</div>
+        </div>
+        <div class="info-card">
+          <div class="info-label">Effectif</div>
+          <div class="info-value">20 à 30 participants max.</div>
+        </div>
+        <div class="info-card">
+          <div class="info-label">Format</div>
+          <div class="info-value">Présentiel — Français</div>
+        </div>
+        <div class="info-card">
+          <div class="info-label">Certification</div>
+          <div class="info-value">Certificat Impact Plus</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Objectifs -->
+    <div class="section">
+      <div class="section-title">Objectifs Pédagogiques</div>
+      <ul class="obj-list">
+        <li class="obj-item"><div class="obj-num">01</div><div class="obj-text"><strong>Identifier & caractériser</strong>Reconnaître les différents types de dommages affectant la productivité des puits.</div></li>
+        <li class="obj-item"><div class="obj-num">02</div><div class="obj-text"><strong>Diagnostiquer avec précision</strong>Analyser les données de tests de puits et de production pour un diagnostic fiable.</div></li>
+        <li class="obj-item"><div class="obj-num">03</div><div class="obj-text"><strong>Sélectionner la bonne technique</strong>Choisir la méthode de stimulation la plus adaptée à chaque situation opérationnelle.</div></li>
+        <li class="obj-item"><div class="obj-num">04</div><div class="obj-text"><strong>Concevoir un programme complet</strong>Élaborer un programme de stimulation de la planification initiale à l'exécution terrain.</div></li>
+        <li class="obj-item"><div class="obj-num">05</div><div class="obj-text"><strong>Évaluer les résultats</strong>Mesurer les performances techniques et économiques post-stimulation.</div></li>
+        <li class="obj-item"><div class="obj-num">06</div><div class="obj-text"><strong>Intégrer les exigences HSE</strong>Appliquer les normes Hygiène, Sécurité, Environnement à chaque étape opérationnelle.</div></li>
+      </ul>
+    </div>
+
+    <!-- Programme -->
+    <div class="section">
+      <div class="section-title">Programme — 3 Jours / 9 Modules</div>
+      <div class="day-block">
+        <div class="day-label">Jour 1</div>
+        <div class="module-row"><div class="module-num">Module 1</div><div class="module-content"><strong>Introduction à la Stimulation</strong><span>Cycle de vie d'un puits, productivité, définition de la stimulation, impact économique.</span></div></div>
+        <div class="module-row"><div class="module-num">Module 2</div><div class="module-content"><strong>Mécanismes des Dommages</strong><span>Dommages mécaniques, migration de fines, dommages chimiques, organiques, biologiques.</span></div></div>
+        <div class="module-row"><div class="module-num">Module 3</div><div class="module-content"><strong>Diagnostic des Dommages</strong><span>Courbes de production, tests de puits, interprétation des données — Atelier pratique.</span></div></div>
+      </div>
+      <div class="day-block">
+        <div class="day-label">Jour 2</div>
+        <div class="module-row"><div class="module-num">Module 4</div><div class="module-content"><strong>Acidification des Puits</strong><span>Types d'acides, acidification matricielle vs fracturation acide, wormholing, additifs.</span></div></div>
+        <div class="module-row"><div class="module-num">Module 5</div><div class="module-content"><strong>Fracturation Hydraulique</strong><span>Géomécanique, fluides de fracturation, proppants, déroulement opérationnel, HSE.</span></div></div>
+        <div class="module-row"><div class="module-num">Module 6</div><div class="module-content"><strong>Traitements Chimiques</strong><span>Anti-paraffine, anti-asphaltène, anti-scaling, stabilisation des argiles — Atelier pratique.</span></div></div>
+      </div>
+      <div class="day-block">
+        <div class="day-label">Jour 3</div>
+        <div class="module-row"><div class="module-num">Module 7</div><div class="module-content"><strong>Sélection des Techniques</strong><span>Matrice de décision, critères de sélection, analyse économique préalable.</span></div></div>
+        <div class="module-row"><div class="module-num">Module 8</div><div class="module-content"><strong>Conception du Programme</strong><span>Revue des données, définition des objectifs, calcul des volumes, plan terrain.</span></div></div>
+        <div class="module-row"><div class="module-num">Module 9</div><div class="module-content"><strong>Évaluation & Optimisation</strong><span>Post-stimulation, rapport technique, retour d'expérience — Étude de cas finale.</span></div></div>
+      </div>
+    </div>
+
+  </div><!-- /left-col -->
+
+  <!-- PANNEAU PAIEMENT -->
+  <div class="payment-panel">
+    <div class="price-card">
+      <div class="price-header">
+        <div class="price-label">Tarif formation</div>
+        <div class="price-amount">6 000 <span>€ TTC</span></div>
+        <div class="price-note">Par participant · Sessions Juin & Juillet 2026</div>
+      </div>
+
+      <div class="price-body">
+
+        <!-- Session -->
+        <div class="field-group">
+          <div class="field-label">Choisir une session</div>
+          <div class="session-options">
+            <button class="session-btn active" onclick="selectSession(this)">
+              <div class="s-month">Juin 2026</div>
+              <div class="s-year">Session 1</div>
+            </button>
+            <button class="session-btn" onclick="selectSession(this)">
+              <div class="s-month">Juillet 2026</div>
+              <div class="s-year">Session 2</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Coordonnées -->
+        <div class="field-group">
+          <div class="field-label">Vos Coordonnées</div>
+          <div class="field-row" style="margin-bottom:10px">
+            <input type="text" id="prenom" placeholder="Prénom">
+            <input type="text" id="nom" placeholder="Nom">
+          </div>
+          <input type="email" id="email" placeholder="Adresse e-mail professionnelle" style="margin-bottom:10px">
+          <input type="text" id="societe" placeholder="Société / Organisation" style="margin-bottom:10px">
+          <input type="tel" id="tel" placeholder="Téléphone (ex: +33 6 12 34 56 78)">
+        </div>
+
+        <!-- Mode de paiement -->
+        <div class="field-group">
+          <div class="field-label">Mode de paiement</div>
+          <div class="payment-tabs">
+            <button class="pay-tab active" onclick="switchPay('card', this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              Carte
+            </button>
+            <button class="pay-tab" onclick="switchPay('virement', this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              Virement
+            </button>
+            <button class="pay-tab" onclick="switchPay('cheque', this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              Chèque
+            </button>
+          </div>
+
+          <!-- CARTE BANCAIRE -->
+          <div class="card-fields show" id="pay-card">
+            <div class="card-number-wrap">
+              <input type="text" id="cardnum" placeholder="Numéro de carte" maxlength="19" oninput="formatCard(this)" style="padding-right:110px">
+              <div class="card-icons">
+                <div class="card-brand visa">VISA</div>
+                <div class="card-brand mc">MC</div>
+                <div class="card-brand amex">AMEX</div>
+              </div>
+            </div>
+            <div class="field-row">
+              <input type="text" placeholder="MM / AA" maxlength="7" oninput="formatExpiry(this)">
+              <input type="text" placeholder="CVC" maxlength="4">
+            </div>
+            <div style="margin-top:10px">
+              <input type="text" placeholder="Nom du titulaire">
+            </div>
+          </div>
+
+          <!-- VIREMENT BANCAIRE -->
+          <div class="virement-fields" id="pay-virement">
+            <p style="font-size:12.5px; color:var(--gray-600); margin-bottom:10px; line-height:1.5;">
+              Effectuez un virement bancaire avec les coordonnées ci-dessous. Indiquez votre nom et la session choisie en référence.
+            </p>
+            <div class="bank-info">
+              <div class="bank-row"><span class="bank-key">Bénéficiaire</span><span class="bank-val">IMPACT PLUS CONSULTING</span></div>
+              <div class="bank-row"><span class="bank-key">IBAN</span><span class="bank-val">FR76 XXXX XXXX XXXX XXXX XXXX XXX</span></div>
+              <div class="bank-row"><span class="bank-key">BIC / SWIFT</span><span class="bank-val">XXXXXXXX</span></div>
+              <div class="bank-row"><span class="bank-key">Banque</span><span class="bank-val">BNP Paribas, Paris</span></div>
+              <div class="bank-row"><span class="bank-key">Référence</span><span class="bank-val">STIM2026 + Votre Nom</span></div>
+            </div>
+            <p style="font-size:11px; color:var(--gray-400); line-height:1.5;">
+              L'inscription sera confirmée à réception du paiement. Un accusé de réception vous sera envoyé par e-mail.
+            </p>
+          </div>
+
+          <!-- CHÈQUE -->
+          <div class="cheque-fields" id="pay-cheque">
+            <div class="cheque-info">
+              <strong>Chèque à l'ordre de : IMPACT PLUS CONSULTING</strong><br><br>
+              Envoyer à :<br>
+              Impact Plus Consulting<br>
+              6 Rue Carle Hébert, 92400 Paris, France<br><br>
+              Joindre ce formulaire complété avec votre chèque.
+            </div>
+            <p style="font-size:11px; color:var(--gray-400); line-height:1.5;">
+              L'inscription est confirmée à encaissement du chèque. Délai de traitement : 3 à 5 jours ouvrés.
+            </p>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <button class="btn-register" onclick="submitForm()">
+          Confirmer mon inscription →
+        </button>
+
+        <!-- Sécurité -->
+        <div class="security-row">
+          <div class="sec-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Paiement sécurisé
+          </div>
+          <div class="sec-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            SSL / 3D Secure
+          </div>
+          <div class="sec-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Données protégées
+          </div>
+        </div>
+
+        <div class="guarantee">
+          Un email de confirmation vous sera envoyé immédiatement.<br>
+          Contact : <a href="mailto:formation@impactplusconsulting.com" style="color:var(--blue-main);">formation@impactplusconsulting.com</a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Places restantes -->
+    <div class="places-bar">
+      <div class="places-top">
+        <span class="places-label">Places disponibles — Session Juin</span>
+        <span class="places-count">11 restantes</span>
+      </div>
+      <div class="prog-bar"><div class="prog-fill"></div></div>
+      <div class="places-note">19 inscriptions confirmées sur 30 places</div>
+    </div>
+
+  </div><!-- /payment-panel -->
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <strong style="color:rgba(255,255,255,0.9);">IMPACT PLUS</strong> — Conseil &amp; Formation Professionnelle Internationale<br>
+  6 Rue Carle Hébert, 92400 Paris, France &nbsp;·&nbsp; SIREN : 992 343 582<br>
+  <a href="mailto:formation@impactplusconsulting.com">formation@impactplusconsulting.com</a>
+</footer>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal">
+    <div class="modal-icon"></div>
+    <h3>Inscription enregistrée !</h3>
+    <p>Votre demande d'inscription a bien été reçue. Un email de confirmation vous sera envoyé dans les prochaines minutes à l'adresse indiquée.<br><br>Notre équipe reviendra vers vous pour finaliser votre dossier.</p>
+    <button class="modal-close" onclick="closeModal()">Fermer</button>
+  </div>
+</div>
+
+<script>
+  function selectSession(btn) {
+    document.querySelectorAll('.session-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function switchPay(type, btn) {
+    document.querySelectorAll('.pay-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('pay-card').classList.toggle('show', type === 'card');
+    document.getElementById('pay-virement').classList.toggle('show', type === 'virement');
+    document.getElementById('pay-cheque').classList.toggle('show', type === 'cheque');
+    document.querySelectorAll('.card-fields, .virement-fields, .cheque-fields').forEach(el => el.style.display = 'none');
+    if (type === 'card') { document.getElementById('pay-card').style.display = 'block'; }
+    if (type === 'virement') { document.getElementById('pay-virement').style.display = 'block'; }
+    if (type === 'cheque') { document.getElementById('pay-cheque').style.display = 'block'; }
+  }
+
+  function formatCard(input) {
+    let v = input.value.replace(/\D/g, '').substring(0, 16);
+    input.value = v.replace(/(.{4})/g, ' ').trim();
+  }
+
+  function formatExpiry(input) {
+    let v = input.value.replace(/\D/g, '').substring(0, 4);
+    if (v.length >= 2) v = v.substring(0,2) + ' / ' + v.substring(2);
+    input.value = v;
+  }
+
+  function submitForm() {
+    const required = ['prenom','nom','email','societe'];
+    let valid = true;
+    required.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) { el.style.borderColor = 'var(--error)'; valid = false; }
+      else { el.style.borderColor = 'var(--gray-200)'; }
+    });
+    if (!valid) { alert('Veuillez remplir tous les champs obligatoires.'); return; }
+    document.getElementById('successModal').classList.add('show');
+  }
+
+  function closeModal() {
+    document.getElementById('successModal').classList.remove('show');
+  }
+
+  // Init: show card fields
+  document.getElementById('pay-card').style.display = 'block';
+  document.getElementById('pay-virement').style.display = 'none';
+  document.getElementById('pay-cheque').style.display = 'none';
+</script>
+</body>
+</html>
