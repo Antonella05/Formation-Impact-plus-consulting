@@ -861,7 +861,7 @@
     input.value = v;
   }
 
-  function submitForm() {
+  async function submitForm() {
     const required = ['prenom','nom','email','societe'];
     let valid = true;
     required.forEach(id => {
@@ -870,7 +870,47 @@
       else { el.style.borderColor = 'var(--gray-200)'; }
     });
     if (!valid) { alert('Veuillez remplir tous les champs obligatoires.'); return; }
-    document.getElementById('successModal').classList.add('show');
+
+    // Récupérer la session sélectionnée
+    const sessionBtn = document.querySelector('.session-btn.active');
+    const session = sessionBtn ? sessionBtn.querySelector('.s-month').textContent : '';
+
+    // Récupérer le mode de paiement actif
+    const payTab = document.querySelector('.pay-tab.active');
+    const paiement = payTab ? payTab.textContent.trim() : '';
+
+    const btn = document.querySelector('.btn-register');
+    btn.disabled = true;
+    btn.textContent = 'Envoi en cours…';
+
+    try {
+      const response = await fetch('https://formspree.io/f/mqewyoly', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          prenom:   document.getElementById('prenom').value.trim(),
+          nom:      document.getElementById('nom').value.trim(),
+          email:    document.getElementById('email').value.trim(),
+          societe:  document.getElementById('societe').value.trim(),
+          telephone: document.getElementById('tel').value.trim(),
+          session:  session,
+          mode_paiement: paiement
+        })
+      });
+
+      if (response.ok) {
+        document.getElementById('successModal').classList.add('show');
+        // Réinitialiser le formulaire
+        ['prenom','nom','email','societe','tel'].forEach(id => document.getElementById(id).value = '');
+      } else {
+        alert('Une erreur est survenue. Veuillez réessayer ou nous contacter par email.');
+      }
+    } catch (err) {
+      alert('Erreur réseau. Vérifiez votre connexion et réessayez.');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Confirmer mon inscription →';
+    }
   }
 
   function closeModal() {
